@@ -1,19 +1,11 @@
-<!--pages/me/me.wxml-->
-<!-- 登录 -->
-<view class="container">
-    <text>登录</text>
-    <view class='content'>
-        <image class="user-avatar" src="../../images/logo.png"></image>
-        <input placeholder="账户" class='user-id' bindinput='getUsername' />
-        <input placeholder="密码" class='password' bindinput='getPassword' password='true' />
-        <button class='login' bindtap='loginClick' hover-class='login-hover'>登录</button>
-    </view>
-
-    <view class='triangle1'></view>
-    <view class='triangle2'></view>
-    <view class='triangle3'></view>
-    <view class='triangle4'></view>
-    <view class='triangle5'></view>
-    <view class='triangle6'></view>
-
+<view class="userInfo" wx:if="{{userInfo}}">
+    <image src="{{userInfo.avatarUrl}}" class="avatar"></image>
+    <view class="name">{{userInfo.nickName}}</view>
+</view>
+<view class="infoView" wx:else>
+    <image src="/images/avatar.png" class="avatar"></image>
+    <view class="textView">你还没有登录</view>
+    <button class="btnInfo" bindtap="login">
+        <view>立即授权登录</view>
+    </button>
 </view>

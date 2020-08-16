@@ -1,119 +1,120 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
-var jobJsonData = require('../../data/job_data.js');
+import baseApi from '../../api/index.js';
+import checkLogin from '../../utils/checked';
 
 Page({
   data: {
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    slidshows:[
-      { "slidshow": "../../images/slidshow4.jpg" },
-      { "slidshow": "../../images/slidshow3.jpg" },
-      { "slidshow": "../../images/slidshow1.jpg" },
-      { "slidshow": "../../images/slidshow2.jpg" }
-    ]
+    listData: [],
+    isShowProduction: false,
+    pageNo: 1,
+    totalPage: 1,
+    queryForm: {
+      code: '',
+      userphone: '',
+      username: '',
+    }
   },
-  //事件处理函数
-  onPullDownRefresh: function () {
-    wx.request({
-      url: '#',
-      data: {},
-      method: 'GET',
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) {
-        wx.stopPullDownRefresh();
-      }
-    })
-  },
-
-  // 更多工作
-  more_job:function(){
-    wx.navigateTo({
-      url: '/pages/more_job/more_job'
-    });
-  },
-
-  // 工作详情
-  job_details: function(e) {
-    console.log(e)
-    var arrayIndex = e.target.id;
-    console.log(arrayIndex)
-    // 把要传递的json对象转换成字符串
-    var jobDetails = JSON.stringify(this.data.JobDataList[arrayIndex]);
-    wx.navigateTo({
-      url: '/pages/job_details/job_details?jobDetails=' + jobDetails
-   });
-  },
-
-  // 地图
-  map: function () {
-    wx.getLocation({
-      type: 'gcj02', // 返回可以用于wx.openLocation的经纬度
-      success(res) {
-        const latitude = 22.483364
-        const longitude = 113.929183
-        wx.openLocation({
-          latitude,
-          longitude,
-          scale: 18
-        })
-      }
-    })
-  },
-
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-
-  callPhone: function () {
-    wx.makePhoneCall({
-      phoneNumber: '0755-26856100' // 仅为示例，并非真实的电话号码
-    })
-  },
-
   onLoad: function () {
+    this.getList()
+  },
+  onPullDownRefresh: function () {
     this.setData({
-      JobDataList: jobJsonData.JobDataList
-    });
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
+      listData: [],
+      pageNo: 1
+    })
+    this.getList()
+  },
+  onReachBottom() {
+    if(this.data.pageNo >= this.data.totalPage) {
+      wx.showToast({
+        title: '暂无更多数据',
+        icon: 'none',
+        duration: 1000
       })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
+    }
+    else {
+      this.setData({
+        pageNo: this.data.pageNo + 1
+      })
+      this.getList()
+    }
+  },
+  getList() {
+    baseApi.findOwnHelmetPage({
+      pageSize: 20,
+      pageNo: this.data.pageNo,
+      param: this.data.queryForm
+    }).then((res) => {
+      const data = res.visiableHelmets.page
+      this.setData({
+        listData: this.data.listData.concat(data.data),
+        totalPage: data.totalPage
+      })
+      wx.stopPullDownRefresh();
+    })
+  },
+  getInputVal(value) {
+    const typeName = value.detail.currentTarget.dataset.id
+    const currVale = value.detail.detail.value
+    const K1 = 'queryForm.code'
+    const K2 = 'queryForm.username'
+    const K3 = 'queryForm.userphone'
+    if (typeName) {
+      if (typeName == 'code') {
         this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+          [K1]: currVale
         })
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
+      if (typeName == 'username') {
+        this.setData({
+          [K2]: currVale
+        })
+      }
+      if (typeName == 'userphone') {
+        this.setData({
+          [K3]: currVale
+        })
+      }
+    }
+  },
+  add() {
+    if(checkLogin()) {
+      wx.navigateTo({
+        url: 'addHat'
       })
     }
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+  search() {
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      isShowProduction: true
     })
-  }
+  },
+  sureGo() {
+    this.setData({
+      listData: [],
+      pageNo: 1
+    })
+    this.getList()
+    this.cancel()
+  },
+  ressureGo() {
+    this.setData({
+      listData: [],
+      pageNo: 1,
+      queryForm: {
+        code: '',
+        userphone: '',
+        username: '',
+      }
+    })
+    this.getList()
+    this.cancel()
+  },
+  cancel() {
+    this.setData({
+      isShowProduction: false
+    })
+  },
 })

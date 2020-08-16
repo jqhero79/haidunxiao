@@ -1,61 +1,38 @@
-<!--index.wxml-->
-<view class='container'>
-  <!-- 轮播图 -->
-  <view class='slidshow'>
-    <swiper indicatorDots="true" autoplay="true" circular="true">
-      <swiper-item  wx:for="{{slidshows}}" wx:key="item" wx:for-index="idx">
-        <image src='{{item.slidshow}}' mode="scaleToFill"></image>
-      </swiper-item>
-    </swiper>
+<view class="search" bindtap="search">
+  <image src="/images/search.png"></image>
+  <view class="text">搜索</view>
+</view>
+<view class="table" wx:if="{{listData.length > 0}}">
+  <view class="tr bg-w">
+    <view class="th">编号</view>
+    <view class="th">姓名</view>
+    <view class="th ">手机号</view>
   </view>
-  <!-- 岗位招聘标题 -->
-  <view class='btt-title-container'>
-    <view class='header'>
-      <view class='tline'></view>
-      <text>岗位招聘</text>
-      <view class='more' bindtap='more_job'>更多>></view>
+  <block wx:for="{{listData}}" wx:key="id">
+    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+      <view class="td">{{item.code}}</view>
+      <view class="td">{{item.username}}</view>
+      <view class="td">{{item.userphone}}</view>
     </view>
-  </view>
-  <!-- 岗位招聘内容 -->
-  <view class='job-content'>
-      <view class='job-item' wx:for="{{JobDataList}}" wx:key="item" wx:for-index="idx"    bindtap="job_details">
-        <image src='{{item.src}}' id="{{idx}}"></image>
-        <text>{{item.title}}</text>
-      </view>
-  </view>
-  <!-- 公司基本信息 -->
-  <view class='base-info'>
-    <navigator url='../../pages/company_details/company_details'>
-      <view class='mendian'>
-        <view class='lt'>
-          <!-- <view class='iconfont-shangcheng'></view> -->
-          <image class='iconfont-shangcheng' src='../../images/shangcheng.png'></image>
-        </view>
-        <view class='rt'>
-          <view class='name'>海福乐（深圳）贸易有限公司</view>
-          <view class='time'>营业时间:
-            <text>周一至周五 早9:00-18:00</text>
-          </view>
-        </view>
-      </view>
-    </navigator>
-    <view class='addr'>
-      <view class='lt'>
-        <image class='iconfont-address'  src='../../images/address.png' ></image>
-        <text class='address' bindtap="map">广东省深圳市南山区蛇口街道望海路1047号利安商务大厦二楼</text>
-      </view>
-      <view class='ct'>|</view>
-      <view class='rt' bindtap="callPhone">
-        <image class='iconfont-contact' src='../../images/kefu.png'></image>
-      </view>
+    <view class="tr" wx:else>
+      <view class="td">{{item.code}}</view>
+      <view class="td">{{item.username}}</view>
+      <view class="td">{{item.userphone}}</view>
     </view>
-  </view>
-  <!-- 底线 -->
-  <view class='bottom-line'>
-    <view class='bottom-content'>
-      <view class='bottom-line-left'></view>
-      <view class='bottom-line-center'>HAFELE-EHK</view>
-      <view class='bottom-line-right'></view>
-    </view>
+  </block>
+</view>
+<view class="no_list" wx:else>暂无数据</view>
+<view class="addBoottomSuspensionBtn">
+  <view class="box" bindtap="add">
+    <image src="/images/addBtns.png" class="addBtns"></image>
+    <text class="Name">添加帽子</text>
   </view>
 </view>
+<popupField isShow="{{isShowProduction}}" pTitle="搜索" topOperation="清空搜索条件" bindtransfer="ressureGo" boBottom="90%">
+  <view class="popupField_box">
+    <pubilcInputField name="code" cval="{{ queryForm.code }}" placeholder="编号" bind:getInputVal="getInputVal" />
+    <pubilcInputField name="username" cval="{{ queryForm.username }}" placeholder="姓名" bind:getInputVal="getInputVal" />
+    <pubilcInputField name="userphone" inputType="number" cval="{{ queryForm.userphone }}" placeholder="手机号" bind:getInputVal="getInputVal" />
+    <view class="simple_Btn_Sure" bindtap="sureGo">查看结果</view>
+  </view>
+</popupField>

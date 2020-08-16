@@ -4,21 +4,42 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
+		"enhance": false,
 		"postcss": true,
+		"preloadBackgroundData": false,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false
+		"coverView": true,
+		"nodeModules": false,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"uglifyFileName": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"compileHotReLoad": false,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"useIsolateContext": true,
+		"useCompilerModule": false,
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.5.1",
-	"appid": "wxa4301b3499a12e51",
+	"libVersion": "2.11.2",
+	"appid": "wx2f33eb3b949c1606",
 	"projectname": "Hafele_XCX",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -28,13 +49,71 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"gamePlugin": {
 			"current": -1,
 			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/auth/auth",
+					"pathName": "pages/auth/auth",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "可见帽子",
+					"pathName": "pages/visibleHat/visibleHat",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "首页",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "添加帽子",
+					"pathName": "pages/index/addHat",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "组织架构",
+					"pathName": "pages/tree/tree",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 5,
+					"name": "组织架构详情",
+					"pathName": "pages/tree/details",
+					"query": "id=18",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/me/me",
+					"pathName": "pages/me/me",
+					"query": "",
+					"scene": null
+				}
+			]
 		}
 	}
 }

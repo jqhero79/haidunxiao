@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "我的帽子",
+  "usingComponents": {
+    "pubilcInputField": "/components/inputField/index",
+    "popupField": "/components/popupField/index"
+  }
 }

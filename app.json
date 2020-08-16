@@ -1,20 +1,22 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/culture/culture",
-    "pages/about/about",
-    "pages/logs/logs",
-    "pages/me/me",
-    "pages/company_details/company_details",
-    "pages/job_details/job_details",
-    "pages/more_job/more_job",
-    "pages/home/home"
+    "pages/index/addHat",
+    "pages/visibleHat/visibleHat",
+    "pages/visibleHat/editHat",
+    "pages/tree/tree",
+    "pages/tree/details",
+    "pages/tree/edit",
+    "pages/tree/updatePerson",
+    "pages/tree/addHat",
+    "pages/auth/auth",
+    "pages/me/me"
   ],
   "window": {
     "backgroundColor": "#E8E8E8",
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#FF0000",
-    "navigationBarTitleText": "海福乐（深圳）贸易有限公司",
+    "navigationBarTitleText": "海盾小程序",
     "navigationBarTextStyle": "white",
     "enablePullDownRefresh": true
   },
@@ -25,28 +27,28 @@
     "backgroundColor": "#fff",
     "list": [
       {
-        "text": "首页",
+        "text": "我的帽子",
         "pagePath": "pages/index/index",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home_actived.png"
       },
       {
-        "text": "企业文化",
-        "pagePath": "pages/culture/culture",
+        "text": "可见帽子",
+        "pagePath": "pages/visibleHat/visibleHat",
         "iconPath": "images/culture.png",
         "selectedIconPath": "images/culture_actived.png"
+      },
+      {
+        "text": "组织架构",
+        "pagePath": "pages/tree/tree",
+        "iconPath": "images/about.png",
+        "selectedIconPath": "images/about_actived.png"
       },
       {
         "text": "我的",
         "pagePath": "pages/me/me",
         "iconPath": "images/me.png",
         "selectedIconPath": "images/me_actived.png"
-      },
-      {
-        "text": "关于",
-        "pagePath": "pages/about/about",
-        "iconPath": "images/about.png",
-        "selectedIconPath": "images/about_actived.png"
       }
     ]
   },
@@ -59,5 +61,6 @@
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
-  "debug": false
+  "debug": false,
+  "sitemapLocation": "sitemap.json"
 }
